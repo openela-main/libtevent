@@ -7,10 +7,10 @@
 %global talloc_version 2.3.4
 
 Name: libtevent
-Version: 0.13.0
-Release: 1%{?dist}
+Version: 0.14.1
+Release: 3%{?dist}
 Summary: The tevent library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
 Source0: http://samba.org/ftp/tevent/tevent-%{version}.tar.gz
 Source1: http://samba.org/ftp/tevent/tevent-%{version}.tar.asc
@@ -18,7 +18,6 @@ Source1: http://samba.org/ftp/tevent/tevent-%{version}.tar.asc
 Source2: tevent.keyring
 
 # Patches
-Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: doxygen
@@ -98,14 +97,25 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %{_libdir}/pkgconfig/tevent.pc
 %{_mandir}/man3/tevent*.gz
 
-%ldconfig_scriptlets
-
+%if %{with python3}
 %files -n python3-tevent
 %{python3_sitearch}/tevent.py
 %{python3_sitearch}/__pycache__/tevent.*
 %{python3_sitearch}/_tevent.cpython*.so
+%endif
+
+%ldconfig_scriptlets
 
 %changelog
+* Tue Jun 06 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.14.1-3
+- resolves: rhbz#2190425 - Rebuild to trigger distrobaker sync
+
+* Wed May 24 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.14.1-2
+- resolves: rhbz#2190425 -  Add missing tests to fix osci.brew-build.tier0.functional
+
+* Thu May 18 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.14.1-1
+- resolves: rhbz#2190425 Update to version 0.14.1
+
 * Mon Oct 24 2022 Andreas Schneider <asn@redhat.com> - 0.13.0-1
 - resolves: rhbz#2132055 - Update to version 0.13.0
 
