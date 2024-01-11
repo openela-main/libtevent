@@ -7,10 +7,10 @@
 %global talloc_version 2.3.4
 
 Name: libtevent
-Version: 0.13.0
-Release: 1%{?dist}
+Version: 0.14.1
+Release: 2%{?dist}
 Summary: The tevent library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
 Source0: http://samba.org/ftp/tevent/tevent-%{version}.tar.gz
 Source1: http://samba.org/ftp/tevent/tevent-%{version}.tar.asc
@@ -18,7 +18,6 @@ Source1: http://samba.org/ftp/tevent/tevent-%{version}.tar.asc
 Source2: tevent.keyring
 
 # Patches
-Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: doxygen
@@ -108,6 +107,12 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Mon Jun 05 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.14.1-2
+- resolves: rhbz#2190424 - Rebuilt to retrigger brew build
+
+* Wed May 17 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.14.1-1
+- resolves: rhbz#2190424 - Update to version 0.14.1
+
 * Fri Oct 21 2022 Andreas Schneider <asn@redhat.com> - 0.13.0-1
 - related: rhbz#2131999 - Update to version 0.13.0
 
