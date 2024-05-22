@@ -4,11 +4,11 @@
 %bcond_with python3
 %endif
 
-%global talloc_version 2.3.4
+%global talloc_version 2.4.1
 
 Name: libtevent
-Version: 0.14.1
-Release: 3%{?dist}
+Version: 0.16.0
+Release: 0%{?dist}
 Summary: The tevent library
 License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
@@ -107,6 +107,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Fri Nov 17 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.16.0-0
+- resolves: RHEL-16504 - update to version 0.16.0
+
 * Tue Jun 06 2023 Pavel Filipenský <pfilipen@redhat.com> - 0.14.1-3
 - resolves: rhbz#2190425 - Rebuild to trigger distrobaker sync
 
