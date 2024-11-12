@@ -1,13 +1,7 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
-
-%global talloc_version 2.4.1
+%global talloc_version 2.4.2
 
 Name: libtevent
-Version: 0.16.0
+Version: 0.16.1
 Release: 1%{?dist}
 Summary: The tevent library
 License: LGPL-3.0-or-later
@@ -27,11 +21,8 @@ BuildRequires: libcmocka-devel >= 1.1.3
 BuildRequires: libtalloc-devel >= %{talloc_version}
 BuildRequires: libxslt
 BuildRequires: make
-%if %{with python3}
 BuildRequires: python3-devel
 BuildRequires: python3-talloc-devel >= %{talloc_version}
-#endif with python
-%endif
 
 Provides: bundled(libreplace)
 Obsoletes: python2-tevent < 0.10.0-1
@@ -52,7 +43,6 @@ Requires: libtalloc-devel%{?_isa} >= %{talloc_version}
 Header files needed to develop programs that link against the Tevent library.
 
 
-%if %{with python3}
 %package -n python3-tevent
 Summary: Python 3 bindings for the Tevent library
 Requires: libtevent%{?_isa} = %{version}-%{release}
@@ -61,8 +51,6 @@ Requires: libtevent%{?_isa} = %{version}-%{release}
 
 %description -n python3-tevent
 Python 3 bindings for libtevent
-#endif with python
-%endif
 
 %prep
 zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
@@ -97,16 +85,17 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %{_libdir}/pkgconfig/tevent.pc
 %{_mandir}/man3/tevent*.gz
 
-%if %{with python3}
 %files -n python3-tevent
 %{python3_sitearch}/tevent.py
 %{python3_sitearch}/__pycache__/tevent.*
 %{python3_sitearch}/_tevent.cpython*.so
-%endif
 
 %ldconfig_scriptlets
 
 %changelog
+* Thu Apr 25 2024 Pavel Filipenský <pfilipen@redhat.com> - 0.16.1-1
+- resolves: RHEL-33755 - Rebase to version 0.16.1
+
 * Mon Dec 04 2023 Andreas Schneider <asn@redhat.com> - 0.16.0-1
 - resolves: RHEL-16481 - Rebase to version 0.16.0
 
